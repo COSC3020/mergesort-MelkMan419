@@ -15,3 +15,6 @@ part of the array each recursive call considers.
 Analyse the time complexity of your implementation and give a $\Theta$ bound for
 its worst-case runtime. Add your answer, including your reasoning, to this
 markdown file.
+
+the number of merge passes required is also $\Theta$ (log n). In each merge pass, the merging of adjacent subarrays takes $\Theta$ (n) time, where n is the total number of elements in the array.
+Combining both the divide and merge passes, the overall time complexity of the iterative mergesort implementation is $\Theta$ (n log n), where n is the number of elements in the array.
