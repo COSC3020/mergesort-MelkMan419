@@ -4,25 +4,28 @@ function mergesort(array) {
     }
 
 const merge = (arr, leftStart, leftEnd, rightStart, rightEnd) => {
-    const temp = arr.slice(leftStart, rightEnd + 1);
-    let i = 0;
-    let j = rightStart - leftStart;
-    let k = leftStart;
+    const temp = [];
+    let i = leftStart;
+    let j = rightStart;
 
-    while (i < (rightStart - leftStart) && j <= rightEnd - leftStart) {
-        if (temp[i] <= arr[j]) {
-            arr[k++] = temp[i++];
+    while (i <= leftEnd && j <= rightEnd) {
+        if (arr[i] <= arr[j]) {
+            temp.push(arr[i++]);
         } else {
-            arr[k++] = arr[j++];
+            temp.push(arr[j++]);
         }
     }
 
-    while (i < (rightStart - leftStart)) {
-        arr[k++] = temp[i++];
+    while (i <= leftEnd) {
+        temp.push(arr[i++]);
     }
 
-    while (j <= rightEnd - leftStart) {
-        arr[k++] = arr[j++];
+    while (j <= rightEnd) {
+        temp.push(arr[j++]);
+    }
+
+    for (let k = leftStart; k <= rightEnd; k++) {
+        arr[k] = temp[k - leftStart];
     }
 };
 
