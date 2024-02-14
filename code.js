@@ -3,23 +3,33 @@ function mergesort(array) {
         return array;
     }
 
-    const merge = (left, right) => {
-        const result = [];
-        let leftIndex = 0;
-        let rightIndex = 0;
+const merge = (arr, leftStart, leftEnd, rightStart, rightEnd) => {
+    const temp = [];
+    let k = 0;
+    let i = leftStart;
+    let j = rightStart;
 
-        while (leftIndex < left.length && rightIndex < right.length) {
-            if (left[leftIndex] < right[rightIndex]) {
-                result.push(left[leftIndex]);
-                leftIndex++;
-            } else {
-                result.push(right[rightIndex]);
-                rightIndex++;
-            }
+    while (i <= leftEnd && j <= rightEnd) {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        } else {
+            temp[k++] = arr[j++];
         }
+    }
 
-        return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
-    };
+    while (i <= leftEnd) {
+        temp[k++] = arr[i++];
+    }
+
+    while (j <= rightEnd) {
+        temp[k++] = arr[j++];
+    }
+
+    for (let p = 0; p < k; p++) {
+        arr[leftStart + p] = temp[p];
+    }
+};
+
 
     const mergePass = (arr, size) => {
         for (let i = 0; i < arr.length; i += 2 * size) {
