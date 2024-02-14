@@ -16,8 +16,4 @@ Analyse the time complexity of your implementation and give a $\Theta$ bound for
 its worst-case runtime. Add your answer, including your reasoning, to this
 markdown file.
 
-(n^2/ 2) * (1 / 2) (1 - (1 / 2)^log_2n) / (1 - 1/2) + (1 / 2)^ log_2n
-
-= (n^2/ 2) * (1 -1 / n) + (1 / 2) log_2n
-
-= n^2/ 2 - n / 2 + (1 / 2) ^log_2n = $\Theta$ (n^2)
+$\Theta$ (n^2 * log(n)) because merge is $\Theta$ (n^2). Time complexity of standard merge sort is, $\Theta$ (n Log n).
