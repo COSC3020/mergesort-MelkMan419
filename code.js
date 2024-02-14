@@ -22,7 +22,12 @@ const merge = (arr, leftStart, leftEnd, rightStart, rightEnd) => {
             leftEnd++;
         }
     }
+
+    while (j <= rightEnd) {
+        arr[k++] = arr[j++];
+    }
 };
+
 
 
     const mergePass = (arr, size) => {
