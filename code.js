@@ -1,49 +1,43 @@
-const merge = (arr, leftStart, leftEnd, rightStart, rightEnd) => {
-    const temp = [];
-    let i = leftStart;
-    let j = rightStart;
+function mergesort(array) {
+    if (array.length <= 1) {
+        return array;
+    }
 
-    while (i <= leftEnd && j <= rightEnd) {
-        if (arr[i] <= arr[j]) {
-            temp.push(arr[i]);
-            i++;
-        } else {
-            temp.push(arr[j]);
-            j++;
+    const merge = (left, right) => {
+        const result = [];
+        let leftIndex = 0;
+        let rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex] < right[rightIndex]) {
+                result.push(left[leftIndex]);
+                leftIndex++;
+            } else {
+                result.push(right[rightIndex]);
+                rightIndex++;
+            }
         }
-    }
 
-    while (i <= leftEnd) {
-        temp.push(arr[i]);
-        i++;
-    }
-
-    while (j <= rightEnd) {
-        temp.push(arr[j]);
-        j++;
-    }
-
-    for (let k = 0; k < temp.length; k++) {
-        arr[leftStart + k] = temp[k];
-    }
-};
-
-const mergesort = (arr) => {
-    const mergePass = (arr, size) => {
-        for (let i = 0; i < arr.length; i += 2 * size) {
-            const leftStart = i;
-            const leftEnd = Math.min(i + size - 1, arr.length - 1);
-            const rightStart = i + size;
-            const rightEnd = Math.min(i + 2 * size - 1, arr.length - 1);
-            merge(arr, leftStart, leftEnd, rightStart, rightEnd);
-        }
+        return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
     };
 
-    for (let size = 1; size < arr.length; size *= 2) {
-        mergePass(arr, size);
+    const mergeSize = 2;
+    const n = array.length;
+    
+    for (let size = 1; size < n; size *= 2) {
+        for (let leftStart = 0; leftStart < n - 1; leftStart += 2 * size) {
+            const mid = Math.min(leftStart + size - 1, n - 1);
+            const rightEnd = Math.min(leftStart + 2 * size - 1, n - 1);
+            const left = array.slice(leftStart, mid + 1);
+            const right = array.slice(mid + 1, rightEnd + 1);
+            const merged = merge(left, right);
+            for (let i = 0; i < merged.length; i++) {
+                array[leftStart + i] = merged[i];
+            }
+        }
     }
 
-    return arr;
-};
+    return array;
+}
 
 module.exports = mergesort;
